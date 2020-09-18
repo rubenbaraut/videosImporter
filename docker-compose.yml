@@ -1,0 +1,14 @@
+version: "3.2"
+services:
+    php:
+        container_name: php-cmp
+        build: ./docker/docker-images/php7/
+        ports:
+        - "${PHP_PORT}:4730"
+        volumes:
+        - .:/var/www/html
+        - ./docker/config/php/php7.ini:/usr/local/etc/php/php.ini:ro
+        - ./docker/config/php/custom-config:/usr/local/etc/php/custom-config.d:ro
+        environment:
+        - PHP_INI_SCAN_DIR=/usr/local/etc/php/conf.d:/usr/local/etc/php/custom-config.d
+        working_dir: /var/www/html
